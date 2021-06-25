@@ -1,0 +1,114 @@
+{% extends 'base/base-django.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="wrapper">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light pt-1 pb-1 ps-4 pe-4 border-bottom border-secondary border-2">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">24 May, 2021</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto fw-bolder text-uppercase">
+        <li class="nav-item pe-2">
+          <a class="nav-link active" aria-current="page" href="#about">About</a>
+        </li>
+        <li class="nav-item pe-2">
+          <a class="nav-link active" href="#services">Services</a>
+        </li>
+        <li class="nav-item pe-2">
+          <a class="nav-link active" href="#team">Team</a>
+        </li>
+        <li class="nav-item pe-2">
+          <a class="nav-link active" href="#contact">Contact</a>
+        </li>
+      </ul>
+    </div>
+    <a class="btn btn-dark btn-sm fw-bold ls-2" style="letter-spacing: 0.08rem;" href="https://github.com/Hackathon21/thecodejournalists" target="blank">GITHUB</a>
+  </div>
+</nav>
+
+<main class="container-fluid">
+    <div class="hero container d-flex flex-column justify-content-center align-items-center" style="padding:6.8rem 0;">
+        <div class="hero-heading fst-italic" style="font-size: 6rem;">
+            <span class="text-to-animate fst-normal">
+            <span class="text-fake text-decoration-line-through">
+            FAKE</span> ➞ REAL</span> NEWS
+        </div>
+        <div class="hero-subheading fs-3 p-2">From Unreliable News to The Verified Daily Feed</div>
+        <div class="p-4"><a href="#" class="btn btn-dark fw-bold">Get Started</a></div>
+    </div>
+
+    <div id="about" class="about container-fluid d-flex flex-column justify-content-center align-items-center min-vw-100 min-vh-100">
+      <div class="row w-100 h-100">
+        <img class="col-6" src="{% static 'images/illustrations/newspaper.svg' %}" alt="illustration">
+        <div class="col-6 p-5 row d-flex gap-5">
+          <h2 class="fw-bold text-uppercase" style="font-size: 5rem;">About</h2>
+          <div class="content fs-5 text-start"> 
+            <p>
+              <strong>Fake news</strong> a.k.a <em>Hoax news</em> occupies a large sphere of cyberspace today worldwide. States, Institutions as well as Individuals are using fake news as a tool of publicity.
+            </p>
+            <p>
+              We developed this Web App for verifying news sources from multiple news sites and tagging their articles as real or fake. The app also provides services for checking whether a news article is fake and finding fake news spreading bot. Now, all of us can read and rely on the real news.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="services" class="services container-fluid d-flex flex-column justify-content-center align-items-center min-vh-100">
+      <div class="row w-100 h-100">
+        <div class="col-6 p-5 row d-flex gap-5">
+          <h2 class="fw-bold text-uppercase" style="font-size: 5rem;">Services</h2>
+          <div class="content fs-5 text-start"> 
+            <p>
+              <strong>VERIFY NEWS</strong> provides multiple news related services - a daily news feed of verified content <strong><em>curated from multiple news sources</em></strong>, an app that utilises the power of <strong><em>Machine Learning (ML)</em></strong> and <strong><em>Natural Language Processing (NLP)</em></strong> to detect fake news and another app to find fake news spreading bots.
+            </p>
+            <ul class="fw-bold">
+              <li>THE VERFIED DAILY</li>
+              <li>NEWS CHECKER</li>
+              <li>BOT FINDER</li>
+            </ul>
+          </div>
+        </div>
+        <img class="col-6" src="{% static 'images/illustrations/share-link.svg' %}" alt="illustration">
+      </div>
+    </div>
+
+    <div id="team" class="team container-fluid d-flex flex-column justify-content-center align-items-center min-vw-100 min-vh-100">
+      <div class="row w-100 h-100">
+        <img class="col-6" src="{% static 'images/illustrations/building-websites.svg' %}" alt="illustration">
+        <div class="col-6 p-5 row d-flex gap-5">
+          <h2 class="fw-bold text-uppercase" style="font-size: 5rem;">TEAM</h2>
+          <div class="content fs-5 text-start d-flex flex-column gap-4"> 
+            <p>
+              We <strong><em>The Code Journalists</em></strong> worked together to bring this site into existence. Each one of us pooled our skills and knowledge, bringing something new to the table. It has been a lot of fun working together and bringing this web app a reality in a matter of days.
+            </p>
+            <ul class="fw-bold fst-italic">
+              <li>Anmol Ahuja</li>
+              <li>Junaid Siddiqui</li>
+              <li>Nikunj Pahwa</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  <div id="contact" class="contact container-fluid d-flex flex-column justify-content-center align-items-center border-top border-bottom border-2 border-secondary mt-5 mb-5">
+      <div class="input-group rounded">
+            <input type="search" class="fs-3 fst-italic form-control rounded border-0 outline-0" placeholder="Subscribe to our daily newsletter" aria-label="Search"
+                aria-describedby="search-addon" />
+            <button class="input-group-text btn btn-lg fs-3" id="search-addon">
+                ➞
+            </button>
+        </div>
+  </div>
+    
+</main>
+
+</div>
+{% endblock content %}

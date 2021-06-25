@@ -1,0 +1,30 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light pt-3 pb-3 ps-4 pe-4 border-bottom border-secondary border-2">
+  <div class="container-fluid fs-5">
+    <a class="navbar-brand d-flex flex-row gap-3" href="/">
+      <img src="{% static 'images/logo.svg' %}" style="width: 4rem; height: 4rem;">
+      <div class="brand-name fs-1 fw-bold pt-2">VERIFY <span class="text-news">NEWS</span></div>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto fw-bolder text-uppercase">
+        <li class="nav-item pe-3">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item pe-3">
+          <a class="nav-link active" href="#">News Checker</a>
+        </li>
+        <li class="nav-item pe-3">
+          <a class="nav-link active" href="#">Bot Finder</a>
+        </li>
+      </ul>
+    </div>
+    {% if user.is_authenticated %}
+      <a class="btn btn-dark text-uppercase fw-bold" href="#">Logout</a>
+    {% else %}
+      <a class="btn btn-dark text-uppercase fw-bold" href="#">Login</a>
+    {% endif %}
+  </div>
+</nav>

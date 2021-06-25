@@ -1,0 +1,30 @@
+{% extends './base.html' %}
+
+{% load static %}
+{% load render_bundle from webpack_loader %}
+
+{% block title %}
+<title>Base React Template</title>
+{% endblock title %}
+
+{% block stylesheets %}
+<!-- Webpack rendered CSS -->
+{% render_bundle 'react' 'css' %}
+{% endblock stylesheets %}
+
+
+{% block content %}
+<div id="react-app"></div>
+{% endblock content %}
+
+{% block renderer_label %}
+<div class="renderer_label">
+    <img src="{% static 'images/react.png' %}" alt="react"/>
+</div>
+{% endblock renderer_label %}
+
+
+{% block scripts %}
+<!-- Webpack rendered JS -->
+{% render_bundle 'react' 'js' %}
+{% endblock scripts %}

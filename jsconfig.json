@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target": "es2017",
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": "./",
+        "paths": {
+            "Assets/*": [
+                "frontend/assets/*"
+            ],
+        }
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}

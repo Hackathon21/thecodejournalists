@@ -1,0 +1,31 @@
+@charset 'UTF-8';
+
+// Override bootstrap variables here
+
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+
+// Wrtie your custom source here
+$color-newsbg: #adb2ba;
+
+html {
+    overflow-x: hidden;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow-x: inherit;
+}
+
+.renderer_label {
+    position: fixed;
+    bottom: 1rem;
+    right: 1.5rem;
+
+    img {
+        width: 5.4rem;
+        height: 2rem;
+        border-radius: 0.2rem;
+        box-shadow: 0.2rem 0.2rem 0.25rem darken(gray, 38);
+    }
+}
