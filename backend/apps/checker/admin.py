@@ -3,4 +3,4 @@ from .models import *
 
 # Register your models here.
 admin.site.register(ArticleExample)
-admin.site.registere(DictEntry)
+admin.site.register(DictEntry)

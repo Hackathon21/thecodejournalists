@@ -1,3 +1,15 @@
+'''
+harvester.py
+Grab, parse, and store the examples provided by ad fontes media and apply their scores to the articles.
+
+Usage:
+    python <filename>.py
+    filename: harvester
+
+Note:   Remember to give full path to module level script after setting project path.
+        DO NOT use auto-formatter like autopep-8 for running this script.
+'''
+
 import pandas as pd
 from django.core.wsgi import get_wsgi_application
 import os
@@ -20,6 +32,8 @@ ss.init()
 record_count = 1
 
 def harvest_Politifact_data():
+    """Reads politifact_data.csv file, load pages from URLs present in file, parse them, store parsed versions along with the score.
+    """
     global record_count
     print("Ready to harvest Politifact data.")
     print("Reading URLs file")
@@ -51,6 +65,8 @@ def harvest_Politifact_data():
 
 
 def harvest_MBC_data():
+    """Reads MediaBiasChartData.csv file, load pages from URLs present in file, parse them, store parsed versions along with the score.
+    """
     global record_count
     print("Ready to harvest Media Bias Chart data.")
     print("Reading URLs file")
@@ -84,5 +100,5 @@ def harvest_MBC_data():
             pass
 
 
-harvest_MBC_data()
+harvest_MBC_data()                # 1092
 harvest_Politifact_data()

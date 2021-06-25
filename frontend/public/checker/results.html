@@ -1,0 +1,363 @@
+{% extends 'base/base-django.html' %}
+
+{% block title %}
+<title>News Checker</title>
+{% endblock title %}
+
+
+{% block content %}
+{% comment %} <div class="container">
+    <div class="row row row-fluid">
+        <div class="wpb_column columns small-12 medium-12">
+            <div class="vc_column-inner  ">
+                <div class="wpb_wrapper">
+
+                    <h2>Analysis of <a href="{{ url }}">{{ headline }}</a><br><br></h2>
+
+                    <a href="/api/check-news/"><button class="btn btn-primary btn btn-primary">Analyze
+                            another</button></a>
+
+
+                    <h3 style="text-align: center;">
+                        Combined Result:<br>
+                        {% if fin_totFake >= fin_totReal %}
+                        Fake/Dodgy
+                        {% else %}
+                        Seems Legit/True
+                        {% endif %}
+                    </h3>
+
+                    <br>
+
+                    Probability of Fake: {{ fin_probabilities.0|floatformat }}% chance of Fake
+                    <div class="progress">
+                        <div class="progress-bar" id="fakeProb_bar" role="progressbar"
+                            aria-valuenow="{{ fin_probabilities.0 }}" aria-valuemin="0" aria-valuemax="100"
+                            style="width:{{ fin_probabilities.0 }}%"></div>
+                    </div>
+
+                    <br>
+
+                    Probability of Dodgy: {{ fin_probabilities.1|floatformat }}% chance of Dodgy
+                    <div class="progress">
+                        <div class="progress-bar" id="MfakeProb_bar" role="progressbar"
+                            aria-valuenow="{{ fin_probabilities.1 }}" aria-valuemin="0" aria-valuemax="100"
+                            style="width:{{ fin_probabilities.1 }}%"></div>
+                    </div>
+
+                    <br>
+
+                    Probability of Mostly True: {{ fin_probabilities.2|floatformat }}% chance of Mostly True
+                    <div class="progress">
+                        <div class="progress-bar" id="MtrueProb_bar" role="progressbar"
+                            aria-valuenow="{{ fin_probabilities.2 }}" aria-valuemin="0" aria-valuemax="100"
+                            style="width:{{ fin_probabilities.2 }}%"></div>
+                    </div>
+
+                    <br>
+
+                    Probability of True: {{ fin_probabilities.3|floatformat }}% chance of True
+                    <div class="progress">
+                        <div class="progress-bar" id="trueProb_bar" role="progressbar"
+                            aria-valuenow="{{ fin_probabilities.3 }}" aria-valuemin="0" aria-valuemax="100"
+                            style="width:{{ fin_probabilities.3 }}%"></div>
+                    </div>
+
+
+                    <br><br>
+                    <hr><br><br>
+                    <h2 style="text-align: center;">
+                        Individual model results
+                    </h2>
+
+
+                    <h3 style="text-align: center;">
+                        Support Vector Classifier Result:<br>
+                        {% if svc_totFake >= svc_totReal %}
+                        Fake/Dodgy
+                        {% else %}
+                        Seems Legit/True
+                        {% endif %}
+                    </h3>
+
+                    <br>
+
+                    Probability of Fake: {{ svc_probabilities.0|floatformat }}% chance of Fake
+                    <div class="progress">
+                        <div class="progress-bar" id="fakeProb_bar" role="progressbar"
+                            aria-valuenow="{{ svc_probabilities.0 }}" aria-valuemin="0" aria-valuemax="100"
+                            style="width:{{ svc_probabilities.0 }}%"></div>
+                    </div>
+
+                    <br>
+
+                    Probability of Dodgy: {{ svc_probabilities.1|floatformat }}% chance of Dodgy
+                    <div class="progress">
+                        <div class="progress-bar" id="MfakeProb_bar" role="progressbar"
+                            aria-valuenow="{{ svc_probabilities.1 }}" aria-valuemin="0" aria-valuemax="100"
+                            style="width:{{ svc_probabilities.1 }}%"></div>
+                    </div>
+
+                    <br>
+
+                    Probability of Mostly True: {{ svc_probabilities.2|floatformat }}% chance of Mostly True
+                    <div class="progress">
+                        <div class="progress-bar" id="MtrueProb_bar" role="progressbar"
+                            aria-valuenow="{{ svc_probabilities.2 }}" aria-valuemin="0" aria-valuemax="100"
+                            style="width:{{ svc_probabilities.2 }}%"></div>
+                    </div>
+
+                    <br>
+
+                    Probability of True: {{ svc_probabilities.3|floatformat }}% chance of True
+                    <div class="progress">
+                        <div class="progress-bar" id="trueProb_bar" role="progressbar"
+                            aria-valuenow="{{ svc_probabilities.3 }}" aria-valuemin="0" aria-valuemax="100"
+                            style="width:{{ svc_probabilities.3 }}%"></div>
+                    </div>
+
+                    <br>
+                    <hr><br>
+
+                    <h3 style="text-align: center;">
+                        Logistic Regression Result:<br>
+                        {% if log_totFake >= log_totReal %}
+                        Fake/Dodgy
+                        {% else %}
+                        Seems Legit/True
+                        {% endif %}
+                    </h3>
+
+                    <br>
+
+                    Probability of Fake: {{ log_probabilities.0|floatformat }}% chance of Fake
+                    <div class="progress">
+                        <div class="progress-bar" id="fakeProb_bar" role="progressbar"
+                            aria-valuenow="{{ log_probabilities.0 }}" aria-valuemin="0" aria-valuemax="100"
+                            style="width:{{ log_probabilities.0 }}%"></div>
+                    </div>
+
+                    <br>
+
+                    Probability of Dodgy: {{ log_probabilities.1|floatformat }}% chance of Dodgy
+                    <div class="progress">
+                        <div class="progress-bar" id="MfakeProb_bar" role="progressbar"
+                            aria-valuenow="{{ log_probabilities.1 }}" aria-valuemin="0" aria-valuemax="100"
+                            style="width:{{ log_probabilities.1 }}%"></div>
+                    </div>
+
+                    <br>
+
+                    Probability of Mostly True: {{ log_probabilities.2|floatformat }}% chance of Mostly True
+                    <div class="progress">
+                        <div class="progress-bar" id="MtrueProb_bar" role="progressbar"
+                            aria-valuenow="{{ log_probabilities.2 }}" aria-valuemin="0" aria-valuemax="100"
+                            style="width:{{ log_probabilities.2 }}%"></div>
+                    </div>
+
+                    <br>
+
+                    Probability of True: {{ log_probabilities.3|floatformat }}% chance of True
+                    <div class="progress">
+                        <div class="progress-bar" id="trueProb_bar" role="progressbar"
+                            aria-valuenow="{{ log_probabilities.3 }}" aria-valuemin="0" aria-valuemax="100"
+                            style="width:{{ log_probabilities.3 }}%"></div>
+                    </div>
+
+                    <br>
+                    <hr><br>
+
+
+                    <h3 style="text-align: center;">
+                        Multilayer Perceptron Result:<br>
+                        {% if mlp_totFake >= mlp_totReal %}
+                        Fake/Dodgy
+                        {% else %}
+                        Seems Legit/True
+                        {% endif %}
+                    </h3>
+
+                    <br>
+
+                    Probability of Fake: {{ mlp_probabilities.0|floatformat }}% chance of Fake
+                    <div class="progress">
+                        <div class="progress-bar" id="fakeProb_bar" role="progressbar"
+                            aria-valuenow="{{ mlp_probabilities.0 }}" aria-valuemin="0" aria-valuemax="100"
+                            style="width:{{ mlp_probabilities.0 }}%"></div>
+                    </div>
+
+                    <br>
+
+                    Probability of Dodgy: {{ mlp_probabilities.1|floatformat }}% chance of Dodgy
+                    <div class="progress">
+                        <div class="progress-bar" id="MfakeProb_bar" role="progressbar"
+                            aria-valuenow="{{ mlp_probabilities.1 }}" aria-valuemin="0" aria-valuemax="100"
+                            style="width:{{ mlp_probabilities.1 }}%"></div>
+                    </div>
+
+                    <br>
+
+                    Probability of Mostly True: {{ mlp_probabilities.2|floatformat }}% chance of Mostly True
+                    <div class="progress">
+                        <div class="progress-bar" id="MtrueProb_bar" role="progressbar"
+                            aria-valuenow="{{ mlp_probabilities.2 }}" aria-valuemin="0" aria-valuemax="100"
+                            style="width:{{ mlp_probabilities.2 }}%"></div>
+                    </div>
+
+                    <br>
+
+                    Probability of True: {{ mlp_probabilities.3|floatformat }}% chance of True
+                    <div class="progress">
+                        <div class="progress-bar" id="trueProb_bar" role="progressbar"
+                            aria-valuenow="{{ mlp_probabilities.3 }}" aria-valuemin="0" aria-valuemax="100"
+                            style="width:{{ mlp_probabilities.3 }}%"></div>
+                    </div>
+
+
+                    <hr>
+                    Extracted words: {{ words }}<br>
+                    <br><br><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> {% endcomment %}
+
+<div style="background-color: rgb(245, 245, 245);">
+    <nav
+        class="navbar navbar-expand-lg navbar-light bg-light pt-1 pb-1 ps-4 pe-4 border-bottom border-secondary border-2">
+        <div class="container-fluid"><a class="navbar-brand fw-bold fs-5" href="#">NEWS CHECKER</a>
+            <div class="text-right" href="#">Say goodbye to the headaches caused by fake news!</div>
+        </div>
+    </nav>
+    
+    <div class="container-fluid p-4">
+        <div class="row">
+            <div class="col-sm-12 col-md-8 mt-3 mb-3">
+            <h1 class="fs-2">{{ headline|truncatechars:55 }}</h1>
+            <!-- 
+                <form method="post">
+                    {% csrf_token %}
+                    <div id="div_id_entryURL" class="row"><input
+                            type="search" name="enteredURL" class="col-11"
+                            placeholder="Enter the link of the news article to check" id="id_entryURL" required=""
+                            value="http://a.msn.com/01/en-in/AALoo9a"><button name="submit"
+                            class="col-1 input-group-text btn btn-dark" id="submit-id-submit">CHECK</button></div>
+                </form>
+             -->
+            </div>
+            <div class="col-md-4 mt-3 mb-3">
+                <h4>RELATED NEWS</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-8">
+                <div style="background-color: rgb(255, 255, 255);">
+                    <div class="row ">
+                        <div class="col-6">
+                            <div class="container">
+                                <h5 class="mt-3 fw-bold">RESULTS</h5>
+                                <h6 class="fs-5 fw-bold">ML Analyser Results:</h6>
+                                {% if fin_totFake <= fin_totReal %}
+                                <button type="button" class="btn btn-success btn-rounded">Real</button>
+                                {% else %}
+                                <button type="button" class="btn btn-danger btn-rounded">Fake</button>
+                                {% endif %}
+                                <p class="fs-5 fw-bold mb-1 mt-3">Users Trust Votes: 2</p>
+                                <p class="fs-5 fw-bold mt-1 mb-1">No of related article : 4</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="container">
+                                <h5 class="mt-3 fw-bold">PIE CHART (ML Results)</h5>
+                                <div>
+                                    <div class="p-5 mb-1 bg-dark text-white rounded"
+                                        style="height: 165px; width: 220px;">PIE CHART HERE</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="ms-4 mt-3">
+                                <h5 class="fw-bold">WORD CLOUD</h5><img class="img-fluid"
+                                    src="https://crimetechweekly.com/wp-content/uploads/2017/07/bigdatawordmap-1264x736.jpg"
+                                    alt="">
+                            </div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div style="background-color: rgb(255, 255, 255);">
+                    <div>
+                        <div class="card mb-3 border-0">
+                            <div class="row no-gutters">
+                                <div class="col-md-4"><img src="https://img.icons8.com/plasticine/100/000000/image.png"
+                                        class="card-img" alt="..."></div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Article Heading</h5>
+                                        <p class="card-text">This is the excerpt of the article...</p>
+                                        <p class="card-text"><small class="text-muted"><a href="./">Original Source
+                                                    Site</a></small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card mb-3 border-0">
+                            <div class="row no-gutters">
+                                <div class="col-md-4"><img src="https://img.icons8.com/plasticine/100/000000/image.png"
+                                        class="card-img" alt="..."></div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Article Heading</h5>
+                                        <p class="card-text">This is the excerpt of the article...</p>
+                                        <p class="card-text"><small class="text-muted"><a href="./">Original Source
+                                                    Site</a></small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card mb-3 border-0">
+                            <div class="row no-gutters">
+                                <div class="col-md-4"><img src="https://img.icons8.com/plasticine/100/000000/image.png"
+                                        class="card-img" alt="..."></div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Article Heading</h5>
+                                        <p class="card-text">This is the excerpt of the article...</p>
+                                        <p class="card-text"><small class="text-muted"><a href="./">Original Source
+                                                    Site</a></small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card mb-3 border-0">
+                            <div class="row no-gutters">
+                                <div class="col-md-4"><img src="https://img.icons8.com/plasticine/100/000000/image.png"
+                                        class="card-img" alt="..."></div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Article Heading</h5>
+                                        <p class="card-text">This is the excerpt of the article...</p>
+                                        <p class="card-text"><small class="text-muted"><a href="./">Original Source
+                                                    Site</a></small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,3 +1,8 @@
+'''
+strainer.py
+This is the parser we will use (import) in our harverster.py file.
+'''
+
 from bs4 import BeautifulSoup
 from bs4.element import Comment
 import urllib3
@@ -8,6 +13,8 @@ from nltk.stem import PorterStemmer
 
 
 class SoupStrainer():
+    """This is our parser.
+    """
     englishDictionary = {}
     haveHeadline = False
     recHeadline = ''
@@ -19,10 +26,14 @@ class SoupStrainer():
     msgOutput = True
 
     def init(self):
+        """Initializes the dictionary from a full dictionary we got from: https://github.com/dwyl/english-words
+        """
         with open('backend/apps/checker/words_dictionary.json') as json_file:
             self.englishDictionary = json.load(json_file)
 
     def tag_visible(self, element):
+        """A filter that is capable of detecting which tags are visible and which ones are not.
+        """
         if element.parent.name in ['style', 'script', 'head', 'title', 'meta', '[document]']:
             return False
         if isinstance(element, Comment):
@@ -60,6 +71,8 @@ class SoupStrainer():
                     break
 
     def loadAddress(self, address):
+        """Checks if the URL seems legit and loads it.
+        """
         self.locToGet = address
         self.haveHeadline = False
 
