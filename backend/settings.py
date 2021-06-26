@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-cxhc2)bkr8%%8n)wt3twdnw@ez8u!ztrhv)&*_d*(ni%0k_2-_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -38,18 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheaders',
     'rest_framework',
     'webpack_loader',
-    'backend.apps.api',
     'backend.apps.core',
     'backend.apps.users',
     'backend.apps.checker',
 ]
 
 MIDDLEWARE = [
-    'backend.apps.core.middleware.CorsMiddleware',
-    # 'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -57,7 +53,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware'
-    
 ]
 
 
@@ -140,7 +135,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'frontend/')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'frontend/assets/')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'frontend/assets/'),
 )
@@ -164,12 +159,3 @@ WEBPACK_LOADER = {
         'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
     }
 }
-
-# CORS_ALLOWED_ORIGINS = [
-#     "http://127.0.0.1:8000",
-#     "http://localhost:8000",
-#     "https://bing-news-search1.p.rapidapi.com",
-# ]
-
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS= True

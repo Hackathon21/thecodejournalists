@@ -254,110 +254,136 @@
             <div class="col-sm-12 col-md-8">
                 <div style="background-color: rgb(255, 255, 255);">
                     <div class="row ">
-                        <div class="col-6">
+                        <div class="col-5">
                             <div class="container">
-                                <h5 class="mt-3 fw-bold">RESULTS</h5>
-                                <h6 class="fs-5 fw-bold">ML Analyser Results:</h6>
-                                {% if fin_totFake <= fin_totReal %}
-                                <button type="button" class="btn btn-success btn-rounded">Real</button>
-                                {% else %}
-                                <button type="button" class="btn btn-danger btn-rounded">Fake</button>
-                                {% endif %}
-                                <p class="fs-5 fw-bold mb-1 mt-3">Users Trust Votes: 2</p>
-                                <p class="fs-5 fw-bold mt-1 mb-1">No of related article : 4</p>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="container">
-                                <h5 class="mt-3 fw-bold">PIE CHART (ML Results)</h5>
-                                <div>
-                                    <div class="p-5 mb-1 bg-dark text-white rounded"
-                                        style="height: 165px; width: 220px;">PIE CHART HERE</div>
+                                <h2 class="mt-3 fw-bold mb-4">RESULTS</h2>
+                                <div class="d-flex flex-column gap-2">
+                                    <div class="d-flex gap-4">
+                                        <span class="fs-5 fw-bold">ML Analyser Results:</span>
+                                        {% if fin_totFake <= fin_totReal %}
+                                        <button type="button" class="btn btn-success btn-rounded btn-sm ms-2">Real</button>
+                                        {% else %}
+                                        <button type="button" class="btn btn-danger btn-rounded btn-sm ms-2">Fake</button>
+                                        {% endif %}
+                                    </div>
+                                    <p class="fs-5 fw-bold mb-1 mt-3">Users Trust Votes: 2</p>
+                                    <p class="fs-5 fw-bold mt-1 mb-1">No of related article : {{ articles | length}}</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="container">
-                            <div class="ms-4 mt-3">
-                                <h5 class="fw-bold">WORD CLOUD</h5><img class="img-fluid"
-                                    src="https://crimetechweekly.com/wp-content/uploads/2017/07/bigdatawordmap-1264x736.jpg"
-                                    alt="">
+                        <div class="col-7">
+                            <div class="container">
+                                <h3 class="mt-3 fw-bold">ML Probabilites</h3>
+                                <div id="piechart" style="width: 100%; height: 100%;"></div>
                             </div>
-                            <div></div>
                         </div>
                     </div>
+                    <div class="container">
+                        <h3 class="mt-4 mb-3 fw-bold">Results from all ML Models: </h3>
+                        <div class="row">
+                            <div id="pie-1" class="col-4">
+
+                            </div>
+                            <div id="pie-2" class="col-4">
+
+                            </div>
+                            <div id="pie-3" class="col-4">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="ms-4 mt-3">
+                            <h5 class="fw-bold">WORD CLOUD</h5>
+                            <img
+                                src="{{cloud}}"
+                                alt="Here I am" style="width: 100%; height: 18rem">
+                        </div>
+                    </div> 
                 </div>
             </div>
             <div class="col-md-4">
-                <div style="background-color: rgb(255, 255, 255);">
+                <div style="background-color: rgb(245, 245, 245);">
+                    {% for article in articles %}
                     <div>
                         <div class="card mb-3 border-0">
                             <div class="row no-gutters">
-                                <div class="col-md-4"><img src="https://img.icons8.com/plasticine/100/000000/image.png"
+                                <div class="col-md-4"><img src="{{article.siteimg}}"
                                         class="card-img" alt="..."></div>
                                 <div class="col-md-8">
                                     <div class="card-body">
-                                        <h5 class="card-title">Article Heading</h5>
-                                        <p class="card-text">This is the excerpt of the article...</p>
-                                        <p class="card-text"><small class="text-muted"><a href="./">Original Source
-                                                    Site</a></small></p>
+                                        <h6 class="card-title fw-bold" style="font-size: 0.8rem;">{{article.title | truncatechars:30}}</h6>
+                                        <p class="card-text" style="font-size: 0.68rem;">{{ article.summary | truncatechars:100 }}</p>
+                                        <p class="card-text" style="font-size: 0.6rem;"><small class="text-muted"><a href="{{article.source}}">Original Source</a></small></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <div class="card mb-3 border-0">
-                            <div class="row no-gutters">
-                                <div class="col-md-4"><img src="https://img.icons8.com/plasticine/100/000000/image.png"
-                                        class="card-img" alt="..."></div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Article Heading</h5>
-                                        <p class="card-text">This is the excerpt of the article...</p>
-                                        <p class="card-text"><small class="text-muted"><a href="./">Original Source
-                                                    Site</a></small></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="card mb-3 border-0">
-                            <div class="row no-gutters">
-                                <div class="col-md-4"><img src="https://img.icons8.com/plasticine/100/000000/image.png"
-                                        class="card-img" alt="..."></div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Article Heading</h5>
-                                        <p class="card-text">This is the excerpt of the article...</p>
-                                        <p class="card-text"><small class="text-muted"><a href="./">Original Source
-                                                    Site</a></small></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="card mb-3 border-0">
-                            <div class="row no-gutters">
-                                <div class="col-md-4"><img src="https://img.icons8.com/plasticine/100/000000/image.png"
-                                        class="card-img" alt="..."></div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Article Heading</h5>
-                                        <p class="card-text">This is the excerpt of the article...</p>
-                                        <p class="card-text"><small class="text-muted"><a href="./">Original Source
-                                                    Site</a></small></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+{{fin_probabilities | json_script:"piedata"}}
+{{log_probabilities | json_script:"data-1"}}
+{{mlp_probabilities | json_script:"data-2"}}
+{{svc_probabilities | json_script:"data-3"}}
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawFinal);
+
+    const piedata = JSON.parse(document.getElementById("piedata").textContent);
+    console.log("Final", piedata);
+    const data1 = JSON.parse(document.getElementById("data-1").textContent);
+    console.log("Data 1", data1);
+    const data2 = JSON.parse(document.getElementById("data-2").textContent);
+    console.log("Data 2", data2);
+    const data3 = JSON.parse(document.getElementById("data-3").textContent);
+    console.log("Data 3", data3);
+
+    function drawFinal(){
+        const chartdata = piedata;
+        const title = 'Final Averaged Results of all models';
+        const id = 'piechart';
+        drawChart(chartdata, title, id);
+
+        const chartdata1 = data1;
+        const title1 = 'Logistic Regression';
+        const id1 = 'pie-1';
+        drawChart(chartdata1, title1, id1);
+
+        const chartdata2 = data2;
+        const title2 = 'MLP ML Model';
+        const id2 = 'pie-2';
+        drawChart(chartdata2, title2, id2);
+
+        const chartdata3 = data3;
+        const title3 = 'SVC ML Model';
+        const id3 = 'pie-3';
+        drawChart(chartdata3, title3, id3);
+    }
+
+    function drawChart(chartdata, title, id) {
+        var data = google.visualization.arrayToDataTable([
+            ['Proability', 'Percentage'],
+            ['Fake', chartdata[0]],
+            ['Dodgy', chartdata[1]],
+            ['Legit',  chartdata[2]],
+            ['True', chartdata[3]],
+        ]);
+
+        var options = {
+            title: title,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById(id));
+
+        chart.draw(data, options);
+    }
+</script>
 {% endblock %}

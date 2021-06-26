@@ -1,5 +1,7 @@
 import pickle
-from pprint import PrettyPrinter
+import requests
+import json
+from pprint import PrettyPrinter, pprint
 
 from django.shortcuts import render
 from .models import *
@@ -8,7 +10,7 @@ from .util import *
 
 
 def news_checker(request):
-    url = request.POST.get('enteredURL')
+    url = request.GET.get('enteredURL')
     print('REQUEST WAS HERE', url)
     if((url is not None) and (len(url) > 5)):
         # 1. Load the model from disk
@@ -81,9 +83,61 @@ def news_checker(request):
 
         print('NOW IT IS BELOW fin')
 
+        resp = requests.post('https://quickchart.io/wordcloud', json={
+            'format': 'svg',
+            'width': 1080,
+            'height': 720,
+            'scale': 'linear',
+            'removeStopwords': True,
+            'minWordLength': 4,
+            'text': ss.extractText,
+        })
+
+        imgname = url.replace('/', '_').replace('.',
+                                                '_').replace(':', '_') + ".svg"
+        path = "/static/images/wordclouds/" + imgname
+
+        with open(f'E:/Highway/prototype-hackathon/frontend/assets/images/wordclouds/{imgname}', 'wb') as f:
+            f.write(resp.content)
+
+        url = "https://bing-news-search1.p.rapidapi.com/news/search"
+
+        querystring = {"q": ss.recHeadline,
+                       "safeSearch": "Off", "textFormat": "Raw", "freshness": "Day"}
+
+        headers = {
+            'x-bingapis-sdk': "true",
+            'x-rapidapi-key': "edd273c1a4msheb86eae47ecdb2ep12c1fcjsn245c5ded093a",
+            'x-rapidapi-host': "bing-news-search1.p.rapidapi.com"
+        }
+
+        response = requests.request(
+            "GET", url, headers=headers, params=querystring)
+
+        printer = PrettyPrinter(indent=4, depth=4)
+        related_list = json.loads(response.text)['value']
+
+        articles_list = []
+        for item in related_list:
+            if len(articles_list) > 5:
+                break
+            try:
+                article = {}
+                article['title'] = item['name']
+                article['summary'] = item['description']
+                article['source'] = item['url']
+                article['siteimg'] = item['image']['thumbnail']['contentUrl']
+            except:
+                continue
+            articles_list.append(article)
+
+        # printer.pprint(articles_list)
+
         # 6. Display the processed text and the results
 
-        context = {'headline': ss.recHeadline, 'words': ss.extractText, 'url': url,
+        context = {'headline': ss.recHeadline, 'words': ss.extractText,
+                   'url': url, 'cloud':  path,
+                   'articles': articles_list,
                    'svc_totFake': svc_totFake,
                    'svc_totReal': svc_totReal,
                    'svc_prediction': svc_prediction.tolist(),
@@ -102,8 +156,8 @@ def news_checker(request):
                    }
 
         print('SENT ALL DATA!')
-        printer = PrettyPrinter(indent=4, depth=4)
-        printer.pprint(context)
+        # printer = PrettyPrinter(indent=4, depth=4)
+        # printer.pprint(context)
 
         return render(request, 'checker/results.html', context)
         # return JsonResponse(data=context)

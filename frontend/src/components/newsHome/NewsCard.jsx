@@ -2,8 +2,18 @@ import React, { Component } from 'react'
 
 export default class NewsCard extends Component {
 
+    componentDidMount(){
+        fetch("https://jsonplaceholder.typicode.com/users")
+        .then(response => {
+            console.log(response.data);
+        })
+        .catch(err => {
+            console.error(err);
+        });
+    }
+
     render() {
-        const {size} = this.props;
+        const {size} = this.props;        
         
         return (
             <div className="card mb-2" style={{width: size}}>

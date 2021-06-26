@@ -19,6 +19,5 @@ from django.urls import path, include
 urlpatterns = [
     path('watch-tower/', admin.site.urls),
     path('', include('backend.apps.core.urls', namespace='core')),
-    path('api/', include('backend.apps.api.urls', namespace='api')),
     path('checker/', include('backend.apps.checker.urls', namespace='checker')),
 ]

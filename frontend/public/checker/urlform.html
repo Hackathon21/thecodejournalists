@@ -11,7 +11,7 @@
     </nav>
 
     <div class="container pt-5 pb-5">
-        <form  method="post" action=".">
+        <form  method="get" action=".">
             {% csrf_token %}
             <div id="div_id_entryURL" class="row"> 
                 <input type="search" name="enteredURL" class="col-11" placeholder="Enter the link of the news article to check" maxlength="200" id="id_entryURL" required> 

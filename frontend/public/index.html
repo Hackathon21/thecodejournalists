@@ -1,5 +1,89 @@
-{% extends 'base/base-react.html' %}
+{% extends 'base/base-django.html' %}
 
 {% block title %}
-<title>Django React Starter</title>
+<title>THE VERIFIED DAILY</title>
 {% endblock title %}
+
+{% block content %}
+
+<div id="react-app" class="mb-3" style="background: rgb(245, 245, 245);">
+  <div class="row">
+    <div class="col-8">
+      <div class="container">
+        <div class="row mt-2">
+          {% for article in articles %}
+          <div class="col-6">
+            <div class="card mb-2 mt-2">
+              <img src="https://source.unsplash.com/600x400/?{{article.title|truncatewords:2}}" class="card-img-top"
+                alt="News Image picked from unsplash" />
+              <div class="card-body">
+                <h6 class="card-title fw-bold mt-2">{{ article.title|truncatechars:40 }}</h6>
+                <p class="card-text" style="font-size: 0.88rem;">{{ article.summary|truncatechars:300 }}...</p>
+                <div class="d-flex justify-content-between" style="font-size: 0.6rem;">
+                  <span class="text-muted fs-6"><small>Published on {{ article.published }}</small> by <a
+                      href="{{article.source}}">Source</a></span>
+                  <form method="get" action="/checker/">
+                    {% csrf_token %}
+                    <input type="hidden" name="enteredURL" id="" value="{{article.source}}">
+                    <input  type="submit"
+                        name="submit"
+                        value="Analyze"
+                        class="btn btn-dark"
+                        id="submit-id-submit"/>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="container">
+        <div>
+          <h5 class="fw-bold mt-3 ">Live News Search</h5>
+            <form method="GET" action=".">
+              {% csrf_token %}
+              <div class="input-group rounded mt-3">
+                <input name="query" type="search" class="form-control rounded"
+                  placeholder="Enter the link of the news article here!" aria-label="Search"
+                  aria-describedby="search-addon">
+                <button class="input-group-text btn btn-dark" id="search-addon"><i class="fas fa-search"></i></button>
+              </div>
+            </form>
+        </div>
+        <div>
+          <h5 class="fw-bold mt-3 mb-2">Results</h5>
+          {% if search %}
+            {% for article in results %}
+              <div>
+                <div class="card mt-2 mb-2">
+                  <div class="row g-0">
+                    <div class="col-md-4">
+                    <img src="{{article.siteimg}}" class="img-fluid card-img-top" alt="news image"></div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        <h6 class="card-title fw-bold" style="font-size: 0.8rem;">{{article.title | truncatechars:30}}</h6>
+                        <p class="card-text" style="font-size: 0.68rem;">{{ article.summary | truncatechars:60 }}</p>
+                        <p class="card-text" style="font-size: 0.6rem;"><small class="text-muted"><a
+                              href="{{article.source}}">Original Source</a></small></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+          <div>
+            <img src="https://source.unsplash.com/afW1hht0NSs/400x240" width="360px" height="240px">
+            <h4 class="fw-bold pt-4">Let Sherlock find what you are looking for!</h4>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
