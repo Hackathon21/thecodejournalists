@@ -20,4 +20,5 @@ urlpatterns = [
     path('watch-tower/', admin.site.urls),
     path('', include('backend.apps.core.urls', namespace='core')),
     path('checker/', include('backend.apps.checker.urls', namespace='checker')),
+    path('flagged/', include('backend.apps.flagged.urls', namespace='flagged')),
 ]

@@ -38,11 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
     'webpack_loader',
     'backend.apps.core',
     'backend.apps.users',
     'backend.apps.checker',
+    'backend.apps.flagged',
 ]
 
 MIDDLEWARE = [

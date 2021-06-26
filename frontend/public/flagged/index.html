@@ -1,0 +1,50 @@
+{% extends 'base/base-django.html' %}
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light pt-1 pb-1 ps-4 pe-4 border-bottom border-secondary border-2">
+    <div class="container-fluid"><a class="navbar-brand fw-bold fs-5" href="{% url 'flagged:home' %}">FLAGGED SITES</a>
+        <div class="text-right">Stay away from these sites spreading fake news!</div>
+    </div>
+</nav>
+<div class="container-fluid wrapper" style="background: rgb(245, 245, 245); min-height: 80vh;">
+    <div class="container pt-4">
+        <div class="d-flex gap-2">
+            <div class="col-4 pt-2 pb-2" style="background: rgb(255,255,255); border-radius: 0.5rem;">
+                <h5 class="fw-bold text-center">FAKE NEWS SITES</h5>
+                <div class="d-flex flex-column gap-2">
+                    {% for s in unverified %}
+                    <div class="container d-flex justify-content-between pt-2 pb-2">
+                        <div class="fw-bold fst-italic"><a href="{{s.site}}">{{s.site}}</a></div>
+                        <div class="fw-bold">{{s.count}}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-4 pt-2 pb-2" style="background: rgb(255,255,255); border-radius: 0.5rem;">
+                <h5 class="fw-bold text-center">UNRELIABLE SITES</h5>
+                <div class="d-flex flex-column">
+                    {% for s in unreliable %}
+                    <div class="container d-flex justify-content-between pt-2 pb-2">
+                        <div class="fw-bold fst-italic"><a href="{{s.site}}">{{s.site}}</a></div>
+                        <div class="fw-bold">{{s.count}}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-4 pt-2 pb-2" style="background: rgb(255,255,255); border-radius: 0.5rem;">
+                <h5 class="fw-bold text-center">UNVERIFIED SOURCES</h5>
+                <div class="container d-flex flex-column align-items-center align-content-center">
+                    {% for s in fakenews %}
+                    <div class="container d-flex justify-content-between pt-2 pb-2">
+                        <div class="fw-bold fst-italic"><a href="{{s.site}}">{{s.site}}</a></div>
+                        <div class="fw-bold">{{s.count}}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
