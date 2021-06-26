@@ -16,11 +16,11 @@ def news_checker(request):
         # 1. Load the model from disk
         print("Setting up")
         svc_model = pickle.load(
-            open('E:/Highway/prototype-hackathon/backend/apps/checker/svc_model.sav', 'rb'))
+            open('E:/Highway/thecodejournalists/backend/apps/checker/svc_model.sav', 'rb'))
         mlp_model = pickle.load(open(
-            'E:/Highway/prototype-hackathon/backend/apps/checker/MLPC_model.sav', 'rb'))
+            'E:/Highway/thecodejournalists/backend/apps/checker/MLPC_model.sav', 'rb'))
         log_model = pickle.load(
-            open('E:/Highway/prototype-hackathon/backend/apps/checker/log_model.sav', 'rb'))
+            open('E:/Highway/thecodejournalists/backend/apps/checker/log_model.sav', 'rb'))
         cDict = loadCanonDict()
         ss = SoupStrainer()
         ss.init()
@@ -94,10 +94,10 @@ def news_checker(request):
         })
 
         imgname = url.replace('/', '_').replace('.',
-                                                '_').replace(':', '_') + ".svg"
+                                                '_').replace(':', '_').replace('-', '_') + ".svg"
         path = "/static/images/wordclouds/" + imgname
 
-        with open(f'E:/Highway/prototype-hackathon/frontend/assets/images/wordclouds/{imgname}', 'wb') as f:
+        with open(f'E:/Highway/thecodejournalists/frontend/assets/images/wordclouds/{imgname}', 'wb') as f:
             f.write(resp.content)
 
         url = "https://bing-news-search1.p.rapidapi.com/news/search"
